@@ -10,19 +10,21 @@ function Cards() {
         <div className="cards__wrapper">
             <ul className="cards__items">
                 <CardItem 
-                src="images/aspen.jpeg"
-                text="Explore the hidden waterfall deep inside the 
-                Amazon Jungle"
-                label='Adventure'
+                src="images/uwo.jpeg"
+                text="London"
+                label='Western University and Richmond'
                 path='/eventboard'
                 />
-            </ul>
-            <ul className="cards__items">
                 <CardItem 
-                src="images/aspen.jpeg"
-                text="Explore the hidden waterfall deep inside the 
-                Amazon Jungle"
-                label='Adventure'
+                src="images/toronto.jpeg"
+                text="Greater Toronto Area (GTA)"
+                label='Toronto City Centre'
+                path='/eventboard'
+                />
+                 <CardItem 
+                src="images/niagara.webp"
+                text="Niagara Region"
+                label='Niagara on the Lake Winter Market'
                 path='/eventboard'
                 />
             </ul>
