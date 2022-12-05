@@ -205,7 +205,7 @@ app.post('/lookUpUser', (req, res) => {
   conn.connect();
   const userNo = req.body.userNo;
   //console.log(userNo)
-  //Checks if a user with the same username already exists
+  //Gets username at given userNo
   conn.query(`SELECT username FROM Users WHERE userNo = "${userNo}";`,
   (err, rows, fields) => {
     if (err) {
@@ -216,11 +216,12 @@ app.post('/lookUpUser', (req, res) => {
     }
     else{
       res.json(rows);
-      console.log(rows[0])
     }
 });
 conn.end();
 });
+
+
 
 //Signs up a new user
 app.post('/sign-up', (req, res) => {

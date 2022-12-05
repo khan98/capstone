@@ -17,17 +17,17 @@ function EventBoard(){
         let content =''
         content += '<p>'
         for (let d of response.data) {
+            GetCreator(d.creator);
             content += "Event Type: ";
             content += d.eventType;
-            content += ":&nbsp;";
+            content += "&nbsp;&nbsp;";
             content += "Date: ";
-            content += d.eventDate;
-            content += ":&nbsp;";
+            content += sqlToJsDate(d.eventDate);
+            content += "&nbsp;&nbsp;";
             content += "Max Attendance: ";
             content += d.maxAtendees;
-            content += ":&nbsp;";
+            content += "&nbsp;&nbsp;";
             content += "Creator: ";
-            GetCreator(d.creator);
             content += creator;
             content += '<br>'
         }
@@ -51,14 +51,78 @@ function EventBoard(){
             }
             
     };
-    const GetToronto = async () => {
+
+
+    function sqlToJsDate(sqlDate){
+        //sqlDate in SQL DATETIME format ("yyyy-mm-dd hh:mm:ss.ms")
+        var sqlDateArr1 = sqlDate.split("-");
+        //format of sqlDateArr1[] = ['yyyy','mm','dd hh:mm:ms'];
+        var sMonth = (Number(sqlDateArr1[1])).toString();
+        var sqlDateArr2 = sqlDateArr1[2].split("T");
+        //format of sqlDateArr2[] = ['dd', 'hh:mm:ss.ms']
+        var sDay = sqlDateArr2[0];
+        var month;
+        switch(sMonth){
+            case "1":
+                month = "Jan"
+                break;
+            case "2":
+                month = "Feb"
+                break;
+            case "3":
+                month = "Mar"
+                break;
+            case "4":
+                month = "Apr"
+                break;
+            case "5":
+                month = "May"
+                break;
+            case "6":
+                month = "Jun"
+                break;
+            case "7":
+                month = "July"
+                break;
+            case "8":
+                month = "Aug"
+                break;
+            case "9":
+                month = "Sep"
+                break;
+            case "10":
+                month = "Oct"
+                break;
+            case "11":
+                month = "Nov"
+                break;
+            case "12":
+                month = "Dec"
+                break;
+    
+
+        }
+        
+        return new String(month + "  " + sDay);
+    }
+       const GetToronto = async () => {
         const response = await instance.get(`/torontoEvents`);
         let table = document.getElementById('table');
         let content =''
         content += '<p>'
         for (let d of response.data) {
-            
-            content += JSON.stringify(d.name);
+            GetCreator(d.creator);
+            content += "Event Type: ";
+            content += d.eventType;
+            content += "&nbsp;&nbsp;";
+            content += "Date: ";
+            content += sqlToJsDate(d.eventDate);
+            content += "&nbsp;&nbsp;";
+            content += "Max Attendance: ";
+            content += d.maxAtendees;
+            content += "&nbsp;&nbsp;";
+            content += "Creator: ";
+            content += creator;
             content += '<br>'
         }
         content += '</p>'
@@ -66,15 +130,25 @@ function EventBoard(){
     };
 
     const GetNiagara = async () => {
-        //const response = await instance.get(`/niagaraEvents`);
+        const response = await instance.get(`/niagaraEvents`);
         let table = document.getElementById('table');
         let content =''
         content += '<p>'
-        //for (let d of response.data) {
-            content += getNo();
-            //content += JSON.stringify(d.name);
+        for (let d of response.data) {
+            GetCreator(d.creator);
+            content += "Event Type: ";
+            content += d.eventType;
+            content += "&nbsp;&nbsp;";
+            content += "Date: ";
+            content += sqlToJsDate(d.eventDate);
+            content += "&nbsp;&nbsp;";
+            content += "Max Attendance: ";
+            content += d.maxAtendees;
+            content += "&nbsp;&nbsp;";
+            content += "Creator: ";
+            content += creator;
             content += '<br>'
-        //}
+        }
         content += '</p>'
         table.innerHTML = content;
     };

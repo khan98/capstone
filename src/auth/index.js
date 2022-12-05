@@ -1,6 +1,6 @@
 export function saveNo(number) {
 
-      localStorage.setItem("userId", JSON.stringify(number))
+    localStorage.setItem("userId", JSON.stringify(number))
   
  
     
@@ -15,7 +15,7 @@ export function saveNo(number) {
     
   }
 
-  export function loggedIn() {
+export function loggedIn() {
    
      
     if(localStorage.getItem("userId") != "null"){
@@ -27,4 +27,4 @@ export function saveNo(number) {
 
   
     
-  }
+}
