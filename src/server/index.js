@@ -13,6 +13,40 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
+
+///general db editing query function
+function sendQuery (query,message) {
+  let conn = newConnection();
+  conn.connect();
+  conn.query(query,(err,rows,fields) => {
+      if (err)
+          console.log(err);
+      else
+          console.log(message);
+  });
+  conn.end();
+}
+
+//general db select query function
+function getQuery(query,page){
+  app.get(page, (req, res) => {
+    let conn = newConnection();
+    conn.connect();
+    conn.query(query, (err, rows, fields) => {
+      if (err) {
+        console.error(err);
+      }
+  
+      res.json(rows);
+    }); 
+  });
+  conn.end();
+}
+
+
+////////////////////////////////////////////////
+
+
 app.get('/', (req, res) => {
   // Test DB connection
   let conn = newConnection();
