@@ -56,7 +56,7 @@ function EventBoard(){
         GTA
         </button>
         <button className="button"  onClick= {niagara} style={{ marginLeft: 700, height: 200, width: 300, fontSize: 40 }}>
-        Niagra
+        Niagara
         </button>
     </div>
     <div style={{ marginLeft: 1800, marginTop: 100, fontSize: 40 }} id='table'></div>
