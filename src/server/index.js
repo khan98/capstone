@@ -90,6 +90,7 @@ app.get('/users', (req, res) => {
     conn.end();
 });
 
+//Gets all events in London
 app.get('/londonEvents', (req, res) => {
   let conn = newConnection();
   conn.connect();
@@ -106,6 +107,7 @@ app.get('/londonEvents', (req, res) => {
   conn.end();
 });
 
+//Gets all events in Toronto
 app.get('/torontoEvents', (req, res) => {
   let conn = newConnection();
   conn.connect();
@@ -122,6 +124,7 @@ app.get('/torontoEvents', (req, res) => {
   conn.end();
 });
 
+//Gets all events in Niagara
 app.get('/niagaraEvents', (req, res) => {
   let conn = newConnection();
   conn.connect();
@@ -198,6 +201,30 @@ app.post('/authenticateUser', (req, res) => {
 });
 conn.end();
 });
+
+// Looks up user at given userNo
+app.post('/lookUpUser', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  const userNo = req.body.userNo;
+  //console.log(userNo)
+  //Gets username at given userNo
+  conn.query(`SELECT username FROM Users WHERE userNo = "${userNo}";`,
+  (err, rows, fields) => {
+    if (err) {
+      console.error(err);
+    }
+    if (rows.length == 0) {
+      res.status(400);
+    }
+    else{
+      res.json(rows);
+    }
+});
+conn.end();
+});
+
+
 
 //Signs up a new user
 app.post('/sign-up', (req, res) => {
