@@ -1,4 +1,4 @@
-export function saveNo(type, number) {
+export function saveNo(number) {
 
       localStorage.setItem("userId", JSON.stringify(number))
   
@@ -10,6 +10,20 @@ export function saveNo(type, number) {
    
      
     return localStorage.getItem("userId");
+
+  
+    
+  }
+
+  export function loggedIn() {
+   
+     
+    if(localStorage.getItem("userId") == "null"){
+        return false;
+    }
+    else{
+        return true;
+    }
 
   
     

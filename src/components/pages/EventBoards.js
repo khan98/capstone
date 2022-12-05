@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../../App.css'
 import instance from "../../api/config";
+import { getNo } from "../../auth";
 
 function EventBoard(){
     const london = async () => {
@@ -32,15 +33,15 @@ function EventBoard(){
     };
 
     const niagara = async () => {
-        const response = await instance.get(`/niagaraEvents`);
+        //const response = await instance.get(`/niagaraEvents`);
         let table = document.getElementById('table');
         let content =''
         content += '<p>'
-        for (let d of response.data) {
-            
-            content += JSON.stringify(d.name);
+        //for (let d of response.data) {
+            content += getNo();
+            //content += JSON.stringify(d.name);
             content += '<br>'
-        }
+        //}
         content += '</p>'
         table.innerHTML = content;
     };

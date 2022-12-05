@@ -1,6 +1,7 @@
 import React from 'react';
 import './Button.css';
 import {Link} from 'react-router-dom';
+import { loggedIn } from "../auth";
 
 const STYLES = ['btn--primary', 'btn--outline'];
 
@@ -13,10 +14,11 @@ buttonSize
     const checkButtonStyle = STYLES.includes(buttonStyle) 
     ? buttonStyle
     : STYLES[0];
-
+    
     const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0]
+    const logged =  loggedIn()? "/log-out":"/log-in";
     return(
-        <Link to='/log-in' className='btn-mobile'>
+        <Link to= {logged} className='btn-mobile'>
             <button
             className={`btn ${checkButtonStyle} ${checkButtonSize}`}
             onClick={onClick}

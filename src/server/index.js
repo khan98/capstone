@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 
 ///general db editing query function
-function sendQuery (query,message) {
+/*function sendQuery (query,message) {
   let conn = newConnection();
   conn.connect();
   conn.query(query,(err,rows,fields) => {
@@ -55,7 +55,7 @@ getQuery(erQuery,erPage);
 //friends list
 const friendQuery = 'select username, info ,location from Users where userNo = (select frienNo from friends where userNo = '+usernum+');'
 const friendslistpage = '/friendslist'
-getQuery(friendQuery,friendslistpage);
+getQuery(friendQuery,friendslistpage);*/
 
 
 app.get('/', (req, res) => {
@@ -138,21 +138,22 @@ app.get('/niagaraEvents', (req, res) => {
   conn.end();
 });
 
+//Signs in user
 app.post('/sign-in', (req, res) => {
   let conn = newConnection();
   conn.connect();
   const user = req.body.user;
   const password = req.body.password;
-  console.log(user);
-  console.log(password);
+  //console.log(user);
+  //console.log(password);
 
-  // Get student with matching email and password
+  // Checks if there is a user with matching email and password
   conn.query(`SELECT * FROM Users WHERE username = "${user}" AND pass = "${password}"`,
     (err, rows, fields) => {
       if (err) {
         console.error(err);
       }
-
+      //Does not return a reponse if there is no rows
       if (rows.length == 0) {
         res.status(400);
       }
@@ -161,11 +162,11 @@ app.post('/sign-in', (req, res) => {
   conn.end();
 });
 
-// Get new UserNo
+// Gets UserNo for a new user that just signed up
 app.post('/getUserNo', (req, res) => {
   let conn = newConnection();
   conn.connect();
-
+  //Gets the current max userNo and returns that +1
   conn.query('SELECT * FROM Users WHERE userNo = ( SELECT MAX(userNo) FROM Users) ;',
     (err, rows, fields) => {
       res.json(rows[0].userNo + 1);
@@ -174,19 +175,60 @@ app.post('/getUserNo', (req, res) => {
     conn.end();
 });
 
+// Checks that username is not taken
+app.post('/authenticateUser', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  const user = req.body.user;
+  //Checks if a user with the same username already exists
+  conn.query(`SELECT * FROM Users WHERE username = "${user}";`,
+  (err, rows, fields) => {
+    if (err) {
+      console.error(err);
+    }
+    if (rows.length == 0) {
+      res.json(rows);
+    }
+    else{
+      res.status(400);
+    }
+});
+conn.end();
+});
+
+//Signs up a new user
 app.post('/sign-up', (req, res) => {
   let conn = newConnection();
   conn.connect();
   const user = req.body.user;
   const password = req.body.password;
-  //const name = req.body.name;
-  //const lastName = req.body.lastName;
   const info = req.body.info;
   const favEvent = req.body.favEvent;
   const number = req.body.number;
 
-  // Get student with matching email and password
+  // Inserts new user into table
   conn.query(`INSERT INTO Users (userNo, username, pass, info, favEvent) VALUES (${number},'${user}','${password}','${info}','${favEvent}')`,
+    (err, rows, fields) => {
+      if (err) {
+        console.error(err);
+      }
+      else{
+        res.json(rows);
+      }
+    });
+
+  conn.end();
+});
+
+//Deletes the users account
+app.post('/deleteAccount', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  const userNo = req.body.userNo;
+  
+
+  // Deletes the row corresponding to the users userNo
+  conn.query(`DELETE FROM Users WHERE userNo = "${userNo}"`,
     (err, rows, fields) => {
       if (err) {
         console.error(err);

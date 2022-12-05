@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import instance from "../../api/config";
 //import "../App.css";
 import "./Signup.css";
+import { saveNo } from "../../auth";
+
 
 function Signup() {
     const [user, setUser] = useState("");
@@ -26,6 +28,25 @@ function Signup() {
         setfavEvent(event.target.value)
     }
 
+    const checkUsername = async () => {
+        try {
+            const response = await instance.post(
+                `/authenticateUser`,
+                {
+                    user,
+                }
+            );
+           
+            if (response) { 
+                alert("sucsess")
+                getUserNo();
+            }
+            
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const getUserNo = async () => {
         const response = await instance.post(`/getUserNo`);
         onClickSignUp(response.data);
@@ -45,6 +66,7 @@ function Signup() {
             );
            
             if (response) { 
+                saveNo(number)
                 navigate("/");
             }
         } catch (error) {
@@ -76,7 +98,7 @@ function Signup() {
                 </div>
 
             </form>
-            <button className="button" onClick={getUserNo} style={{ marginTop: 30 }}>Sign Up</button>
+            <button className="button" onClick={checkUsername} style={{ marginTop: 30 }}>Sign Up</button>
     </div>
     );
 

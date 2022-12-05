@@ -29,12 +29,12 @@ function LogIn(){
               }
             
         );
-        if (response.data.length == 1) {
+        if (response) {
             
             const userNo = response.data[0].userNo;
-            saveNo("user", userNo)
+            saveNo(userNo)
             navigate("/");
-            console.log(response);
+            //console.log(response);
           }
         } catch (error) {
           console.log(error);
