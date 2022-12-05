@@ -18,11 +18,11 @@ export function saveNo(number) {
   export function loggedIn() {
    
      
-    if(localStorage.getItem("userId") == "null"){
-        return false;
+    if(localStorage.getItem("userId") != "null"){
+        return true;
     }
     else{
-        return true;
+        return false;
     }
 
   
