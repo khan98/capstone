@@ -39,7 +39,7 @@ function Signup() {
            
             if (response) { 
                 alert("sucsess")
-                getUserNo();
+                onClickSignUp();
             }
             
         } catch (error) {
@@ -47,12 +47,9 @@ function Signup() {
         }
     };
 
-    const getUserNo = async () => {
-        const response = await instance.post(`/getUserNo`);
-        onClickSignUp(response.data);
-    };
-
-    const onClickSignUp = async (number) => {
+    
+    //i changed the user table to auto increment so there is no longer a need to try and fins the next user number
+    const onClickSignUp = async () => {
         try {
             const response = await instance.post(
                 `/sign-up`,
@@ -60,18 +57,35 @@ function Signup() {
                     user,
                     password,
                     info,
-                    favEvent,
-                    number,
+                    favEvent, 
                 }
             );
-           
-            if (response) { 
-                saveNo(number)
-                navigate("/");
-            }
+            //stored the user number asociated with this username if the preivious quiery works
+                if(response){
+                    try{
+                        const response = await instance.post(
+                            `/getUserNo`,
+                            {
+                                user,
+                            }
+                        );  
+                        if (response) { 
+                            saveNo(response.data)
+                            navigate("/");
+                        }
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
+                }
+
+            
         } catch (error) {
             console.log(error);
         }
+        
+
+
     };
     
 

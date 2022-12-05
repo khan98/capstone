@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 
 ///general db editing query function
-/*function sendQuery (query,message) {
+function sendQuery (query,message) {
   let conn = newConnection();
   conn.connect();
   conn.query(query,(err,rows,fields) => {
@@ -43,7 +43,7 @@ function getQuery(query,page){
   conn.end();
 }
 
-
+/*
 ////////////////////////////////////////////////
 //note these are untested i may need to change there to include table referancing 
 //event recomendation
@@ -162,14 +162,15 @@ app.post('/sign-in', (req, res) => {
   conn.end();
 });
 
-// Gets UserNo for a new user that just signed up
+// Gets UserNo given a username
 app.post('/getUserNo', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  //Gets the current max userNo and returns that +1
-  conn.query('SELECT * FROM Users WHERE userNo = ( SELECT MAX(userNo) FROM Users) ;',
+  const user = req.body.user;
+  //Gets the user number based on user name
+  conn.query(`SELECT userNo FROM Users WHERE username = "${user}" ;`,
     (err, rows, fields) => {
-      res.json(rows[0].userNo + 1);
+      res.json(rows[0].userNo);
     });
     
     conn.end();
@@ -180,6 +181,7 @@ app.post('/authenticateUser', (req, res) => {
   let conn = newConnection();
   conn.connect();
   const user = req.body.user;
+  console.log('au flag');
   //Checks if a user with the same username already exists
   conn.query(`SELECT * FROM Users WHERE username = "${user}";`,
   (err, rows, fields) => {
@@ -190,6 +192,7 @@ app.post('/authenticateUser', (req, res) => {
       res.json(rows);
     }
     else{
+      console.log(rows.length);
       res.status(400);
     }
 });
@@ -204,10 +207,10 @@ app.post('/sign-up', (req, res) => {
   const password = req.body.password;
   const info = req.body.info;
   const favEvent = req.body.favEvent;
-  const number = req.body.number;
+  
 
   // Inserts new user into table
-  conn.query(`INSERT INTO Users (userNo, username, pass, info, favEvent) VALUES (${number},'${user}','${password}','${info}','${favEvent}')`,
+  conn.query(`INSERT INTO Users ( username, pass, info, favEvent) VALUES ('${user}','${password}','${info}','${favEvent}')`,
     (err, rows, fields) => {
       if (err) {
         console.error(err);
@@ -241,6 +244,99 @@ app.post('/deleteAccount', (req, res) => {
   conn.end();
 });
 
+
+// request add friend
+//request that another user be the users friend
+app.post('/addFriend', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  const userNo = req.body.userNo;
+  const friendNo = req.body.FriendNo;
+  
+  conn.query(`INSERT INTO Friends (userNo, friendNo, accepted) VALUES ("${userNo}","${friendNo}", false );`,
+    (err, rows, fields) => {
+      if (err) {
+        console.error(err);
+      }
+      else{
+        res.json(rows);
+      }
+    });
+
+  conn.end();
+});
+
+// accept friend request
+//accepts a friend request that has been sent to the user
+app.post('/acceptFriend', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  const userNo = req.body.userNo;
+  const friendNo = req.body.FriendNo;
+  conn.query(`INSERT INTO Friends (userNo, friendNo, accepted) VALUES ("${userNo}","${friendNo}", true );`,
+    (err, rows, fields) => {
+      if (err) {
+        console.error(err);
+      }
+      else{
+        //res.json(rows);
+      }
+    });
+
+  conn.query(`UPDATE Friends SET accepted = true WHERE userNo = "${friendNo}" AND friendNo = "${userNo}" ;`,
+    (err, rows, fields) => {
+      if (err) {
+        console.error(err);
+      }
+      else{
+        res.json(rows);
+      }
+    });
+
+  conn.end();
+});
+
+//get friend requests
+//returns a list of all the users who have sent a friend request which has not been accepted
+app.post('/friendRequests', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  const userNo = req.body.userNo;
+  
+  
+  conn.query(`SELECT userNo from friends WHERE friendNo = "${userNo}" AND accepted = false ;`,
+    (err, rows, fields) => {
+      if (err) {
+        console.error(err);
+      }
+      else{
+        res.json(rows);
+      }
+    });
+
+  conn.end();
+});
+
+//friend list
+//returns a list of all users who are the users friend
+app.post('/friendRequests', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  const userNo = req.body.userNo;
+  
+  
+  conn.query(`SELECT friendNo from friends WHERE userNo = "${userNo}" AND accepted = True ;`,
+    (err, rows, fields) => {
+      if (err) {
+        console.error(err);
+      }
+      else{
+        res.json(rows);
+      }
+    });
+
+  conn.end();
+});
 
 
 app.listen(port, () => {
