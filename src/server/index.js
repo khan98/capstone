@@ -45,6 +45,17 @@ function getQuery(query,page){
 
 
 ////////////////////////////////////////////////
+//note these are untested i may need to change there to include table referancing 
+//event recomendation
+const usernum = 1;
+const erQuery = 'select * from EventList where (creator in (select friendNo from Friends where userNo = '+usernum+') or eventType = (select favEvent from Users where userNo = '+usernum+' ) )and location = (select location from Users where userNo = '+usernum+');'
+const erPage = '/EventRecomendation'
+getQuery(erQuery,erPage);
+
+//friends list
+const friendQuery = 'select username, info ,location from Users where userNo = (select frienNo from friends where userNo = '+usernum+');'
+const friendslistpage = '/friendslist'
+getQuery(friendQuery,friendslistpage);
 
 
 app.get('/', (req, res) => {
