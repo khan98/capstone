@@ -43,7 +43,55 @@ app.get('/users', (req, res) => {
     });
   
     conn.end();
+});
+
+app.get('/londonEvents', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  conn.query('SELECT * FROM Events WHERE location = "London"',
+  (err, rows, fields) => {
+    if (err) {
+      console.error(err);
+    }
+    else{
+      res.send(rows);
+    }
   });
+
+  conn.end();
+});
+
+app.get('/torontoEvents', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  conn.query('SELECT * FROM Events WHERE location = "Toronto"',
+  (err, rows, fields) => {
+    if (err) {
+      console.error(err);
+    }
+    else{
+      res.send(rows);
+    }
+  });
+
+  conn.end();
+});
+
+app.get('/niagaraEvents', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  conn.query('SELECT * FROM Events WHERE location = "Niagara"',
+  (err, rows, fields) => {
+    if (err) {
+      console.error(err);
+    }
+    else{
+      res.send(rows);
+    }
+  });
+
+  conn.end();
+});
 
 
 
