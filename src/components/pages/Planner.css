@@ -1,0 +1,45 @@
+.planner-container > h1{
+    font-size: 50px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.planner-container > h2{
+    font-weight: normal;
+    font-size: 30px;
+    text-align: center;
+}
+
+.planner-container > p{
+    text-align: center;
+}
+
+.planner-container > h3{
+    font-weight: normal;
+    font-size: 30px;
+    text-align: center;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+.add{
+    padding: 10px 35px;
+    background-color: transparent;
+    border: 1px solid rgb(255, 255, 255);
+    color: rgb(4, 3, 3);
+    outline: none;
+    transition: .6s ease;  
+}
+.add:hover{
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    box-shadow: 0 0 5px rgb(144, 144, 144), 0 0 10px rgb(144, 144, 144), 0 0 15px rgb(144, 144, 144);
+    font-weight: bold;
+}

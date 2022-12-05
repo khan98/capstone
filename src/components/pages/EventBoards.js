@@ -3,14 +3,44 @@ import '../../App.css'
 import instance from "../../api/config";
 
 function EventBoard(){
-    const onClick = async () => {
-        const response = await instance.get(`/users`);
+    const london = async () => {
+        const response = await instance.get(`/londonEvents`);
         let table = document.getElementById('table');
         let content =''
         content += '<p>'
-        content += JSON.stringify(response.data[0].userId);
-        content += ":&nbsp;";
-        content += JSON.stringify(response.data[0].name);
+        for (let d of response.data) {
+            
+            content += JSON.stringify(d.name);
+            content += '<br>'
+        }
+        content += '</p>'
+        table.innerHTML = content;
+    };
+
+    const toronto = async () => {
+        const response = await instance.get(`/torontoEvents`);
+        let table = document.getElementById('table');
+        let content =''
+        content += '<p>'
+        for (let d of response.data) {
+            
+            content += JSON.stringify(d.name);
+            content += '<br>'
+        }
+        content += '</p>'
+        table.innerHTML = content;
+    };
+
+    const niagara = async () => {
+        const response = await instance.get(`/niagaraEvents`);
+        let table = document.getElementById('table');
+        let content =''
+        content += '<p>'
+        for (let d of response.data) {
+            
+            content += JSON.stringify(d.name);
+            content += '<br>'
+        }
         content += '</p>'
         table.innerHTML = content;
     };
@@ -19,11 +49,17 @@ function EventBoard(){
     
     <><h1 className='eventboard'>EVENT BOARD</h1>
     <div className="button-container">
-     <button className="button"  onClick= {onClick} style={{ margin: "auto", height: 400, width: 600 }}>
-        View
-    </button>
+        <button className="button"  onClick= {london} style={{ marginLeft: 700, marginTop: 100, height: 200, width: 300, fontSize: 40 }}>
+        London
+        </button>
+        <button className="button"  onClick= {toronto} style={{ marginLeft: 700, height: 200, width: 300, fontSize: 40 }}>
+        GTA
+        </button>
+        <button className="button"  onClick= {niagara} style={{ marginLeft: 700, height: 200, width: 300, fontSize: 40 }}>
+        Niagra
+        </button>
     </div>
-    <div id='table'></div>
+    <div style={{ marginLeft: 1800, marginTop: 100, fontSize: 40 }} id='table'></div>
     </>
     )
 }
