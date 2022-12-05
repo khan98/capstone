@@ -82,7 +82,7 @@ app.get('/users', (req, res) => {
 app.get('/londonEvents', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  conn.query('SELECT * FROM Events WHERE location = "London"',
+  conn.query('SELECT * FROM EventList WHERE location = "London"',
   (err, rows, fields) => {
     if (err) {
       console.error(err);
@@ -98,7 +98,7 @@ app.get('/londonEvents', (req, res) => {
 app.get('/torontoEvents', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  conn.query('SELECT * FROM Events WHERE location = "Toronto"',
+  conn.query('SELECT * FROM EventList WHERE location = "Toronto"',
   (err, rows, fields) => {
     if (err) {
       console.error(err);
@@ -114,7 +114,7 @@ app.get('/torontoEvents', (req, res) => {
 app.get('/niagaraEvents', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  conn.query('SELECT * FROM Events WHERE location = "Niagara"',
+  conn.query('SELECT * FROM EventList WHERE location = "Niagara"',
   (err, rows, fields) => {
     if (err) {
       console.error(err);
@@ -123,6 +123,67 @@ app.get('/niagaraEvents', (req, res) => {
       res.send(rows);
     }
   });
+
+  conn.end();
+});
+
+app.post('/sign-in', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  const user = req.body.user;
+  const password = req.body.password;
+  console.log(user);
+  console.log(password);
+
+  // Get student with matching email and password
+  conn.query(`SELECT * FROM Users WHERE username = "${user}" AND pass = "${password}"`,
+    (err, rows, fields) => {
+      if (err) {
+        console.error(err);
+      }
+
+      if (rows.length == 0) {
+        res.status(400);
+      }
+      res.json(rows);
+  });
+  conn.end();
+});
+
+// Get new UserNo
+app.post('/getUserNo', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+
+  conn.query('SELECT * FROM Users WHERE userNo = ( SELECT MAX(userNo) FROM Users) ;',
+    (err, rows, fields) => {
+      res.json(rows[0].userNo + 1);
+    });
+    
+    conn.end();
+});
+
+app.post('/sign-up', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  const user = req.body.user;
+  const password = req.body.password;
+  //const name = req.body.name;
+  //const lastName = req.body.lastName;
+  const info = req.body.info;
+  const favEvent = req.body.favEvent;
+  const number = req.body.number;
+
+  // Get student with matching email and password
+  conn.query(`INSERT INTO Users (userNo, username, pass, info, favEvent) VALUES (${number},'${user}','${password}','${info}','${favEvent}')`,
+    (err, rows, fields) => {
+      if (err) {
+        console.error(err);
+      }
+      else{
+        res.json(rows);
+      }
+    });
 
   conn.end();
 });

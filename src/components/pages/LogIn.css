@@ -1,0 +1,41 @@
+.log-in, .password, .username, .login  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-size: 40px;
+  }
+input  {
+    width: 500px;
+    height: 20%;
+    font-size: 40px;
+    
+}
+
+.login{
+    padding: 14px 40px;
+    background-color: #008CBA;
+}
+
+
+  
+  .center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .hcenter {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+  }
+
+
