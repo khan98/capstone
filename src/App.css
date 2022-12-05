@@ -39,3 +39,26 @@
   color: #fff;
   font-size: 100px;
 }
+
+.log-out, .username , button{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-size: 20px;
+}
+label{
+  text-align: left;
+  padding: 0.15rem 0;
+}
+input{
+  margin: 0.25rem;
+  border-radius: 5px;
+}
+button{
+  padding: 10px;
+  border-radius: 5px;
+ 
+}
