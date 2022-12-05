@@ -10,7 +10,7 @@ function EventBoard(){
         content += '<p>'
         for (let d of response.data) {
             
-            content += JSON.stringify(d.name);
+            content += JSON.stringify(d.eventType);
             content += '<br>'
         }
         content += '</p>'
@@ -49,13 +49,13 @@ function EventBoard(){
     
     <><h1 className='eventboard'>EVENT BOARD</h1>
     <div className="button-container">
-        <button className="button"  onClick= {london} style={{ marginLeft: 700, marginTop: 100, height: 200, width: 300, fontSize: 40 }}>
+        <button className="button"  onClick= {london} style={{ marginTop: 100, height: 200, width: 300, fontSize: 40 }}>
         London
         </button>
-        <button className="button"  onClick= {toronto} style={{ marginLeft: 700, height: 200, width: 300, fontSize: 40 }}>
+        <button className="button"  onClick= {toronto} style={{ height: 200, width: 300, fontSize: 40 }}>
         GTA
         </button>
-        <button className="button"  onClick= {niagara} style={{ marginLeft: 700, height: 200, width: 300, fontSize: 40 }}>
+        <button className="button"  onClick= {niagara} style={{ height: 200, width: 300, fontSize: 40 }}>
         Niagra
         </button>
     </div>
