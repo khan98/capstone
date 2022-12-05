@@ -1,0 +1,46 @@
+{
+  "blogs": [
+    {
+      "title": "My First Blog",
+      "body": "Why do we use it?\nIt is a long established fact that a reader will be distracted ",
+      "author": "mario",
+      "id": 1
+    },
+    {
+      "title": "Opening Party",
+      "body": "Why do we use it?\nIt is a long established fact that a reader will be distracted ",
+      "author": "yoshi",
+      "id": 2
+    },
+    {
+      "title": "ndlsmf",
+      "body": "sjna",
+      "author": "mario",
+      "id": 3
+    },
+    {
+      "title": "Event Test",
+      "body": "osjnr",
+      "author": "mario",
+      "id": 4
+    },
+    {
+      "title": "Event Test",
+      "body": "osjnr",
+      "author": "mario",
+      "id": 5
+    },
+    {
+      "title": "Event Test",
+      "body": "osjnr",
+      "author": "mario",
+      "id": 6
+    },
+    {
+      "title": "Nashmia's event",
+      "body": "AOndsklgnkldg ",
+      "author": "yoshi",
+      "id": 7
+    }
+  ]
+}
