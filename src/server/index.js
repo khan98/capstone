@@ -277,8 +277,8 @@ app.post('/deleteAccount', (req, res) => {
 app.post('/addFriend', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  const userNo = req.body.userNo;
-  const friendNo = req.body.FriendNo;
+  const userNo = req.body.user;
+  const friendNo = req.body.Friend;
   
   conn.query(`INSERT INTO Friends (userNo, friendNo, accepted) VALUES ("${userNo}","${friendNo}", false );`,
     (err, rows, fields) => {
@@ -286,7 +286,7 @@ app.post('/addFriend', (req, res) => {
         console.error(err);
       }
       else{
-        res.json(rows);
+        res.send(rows);
       }
     });
 
@@ -298,8 +298,8 @@ app.post('/addFriend', (req, res) => {
 app.post('/acceptFriend', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  const userNo = req.body.userNo;
-  const friendNo = req.body.FriendNo;
+  const userNo = req.body.user;
+  const friendNo = req.body.Friend;
   conn.query(`INSERT INTO Friends (userNo, friendNo, accepted) VALUES ("${userNo}","${friendNo}", true );`,
     (err, rows, fields) => {
       if (err) {
@@ -316,7 +316,7 @@ app.post('/acceptFriend', (req, res) => {
         console.error(err);
       }
       else{
-        res.json(rows);
+        res.send(rows);
       }
     });
 
@@ -328,7 +328,7 @@ app.post('/acceptFriend', (req, res) => {
 app.post('/friendRequests', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  const userNo = req.body.userNo;
+  const userNo = req.body.user;
   
   
   conn.query(`SELECT userNo from friends WHERE friendNo = "${userNo}" AND accepted = false ;`,
@@ -337,7 +337,7 @@ app.post('/friendRequests', (req, res) => {
         console.error(err);
       }
       else{
-        res.json(rows);
+        res.send(rows);
       }
     });
 
@@ -346,19 +346,19 @@ app.post('/friendRequests', (req, res) => {
 
 //friend list
 //returns a list of all users who are the users friend
-app.post('/friendRequests', (req, res) => {
+app.post('/friends', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  const userNo = req.body.userNo;
+  const userNo = req.body.user;
   
   
-  conn.query(`SELECT friendNo from friends WHERE userNo = "${userNo}" AND accepted = True ;`,
+  conn.query(`SELECT u.username FROM users As u, friends as f WHERE f.userNo = ${userNo} AND accepted = True AND u.userNo = f.friendNo;`,
     (err, rows, fields) => {
       if (err) {
         console.error(err);
       }
       else{
-        res.json(rows);
+        res.send(rows);
       }
     });
 

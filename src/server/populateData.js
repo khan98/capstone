@@ -66,25 +66,25 @@ const dropattendance = `DROP TABLE Eventattendance; `
 
 //populate tables
 function popU(){
-const populateUsers = `INSERT INTO Users ( username, pass, info, favEvent) VALUES `
-for(i=0; i<10;i++)
+let populateUsers = `INSERT INTO Users ( username, pass, info, favEvent) VALUES `
+for(i=1; i<10;i++)
 {
-    populateUsers += `('user`+i`','password','info`+i`','fav'),`
+    populateUsers += `('user`+i+`','password','info`+i+`','fav'),`
 }
-populateUsers += `('user`+10`','password','info`+10`','fav');`;
+populateUsers += `('user`+11+`','password','info`+11+`','fav');`;
 sendQuery(populateUsers,'users populated');
 }
 
 function popfriends(){
-const populate = `INSERT INTO friends ( userNo,friendNo,accepted) VALUES `
+let populate = `INSERT INTO friends ( userNo,friendNo,accepted) VALUES `
 
-for(i=1; i<5;i++)
+for(i=2; i<5;i++)
     {
-        populate += `(`+0+`,`+i+`,true),`;
-        populate += `(`+i+`,`+0+`,true),`;
+        populate += `(`+1+`,`+i+`,true),`;
+        populate += `(`+i+`,`+1+`,true),`;
     }
-    populate += `(`+0+`,`+9+`,false),`;
-    populate += `(`+7+`,`+0+`,false);`;
+    populate += `(`+1+`,`+9+`,false),`;
+    populate += `(`+7+`,`+1+`,false);`;
  
 sendQuery(populate,'friends populated');
 }
@@ -92,12 +92,12 @@ sendQuery(populate,'friends populated');
 
 
 //drop all
-/*
+
     //sendQuery(dropattendance,'attendance droped');
     //sendQuery(dropFriends,'friends droped');
     //sendQuery(dropevents,'events droped');
     //sendQuery(dropUsers,'users droped');
-*/
+
 //create all
 /*
     sendQuery(createusers, 'users created');
@@ -105,3 +105,5 @@ sendQuery(populate,'friends populated');
     sendQuery (createEvents,'events created');
     sendQuery (createattendance,'attendance created');
 */
+//popU();
+popfriends();
