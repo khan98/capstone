@@ -38,7 +38,6 @@ function Signup() {
             );
            
             if (response) { 
-                alert("sucsess")
                 onClickSignUp();
             }
             

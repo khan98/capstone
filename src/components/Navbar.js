@@ -57,11 +57,6 @@ function Navbar() {
                             Personal
                         </Link>
                     </li>
-                    <li className='nav-item'>
-                        <Link to='/log-in' className='nav-links-mobile' onClick={closeMobileMenu}>
-                            Log In
-                        </Link>
-                    </li>
                     
                 </ul>
                 {button && <Button buttonStyle='btn--outline'>{logged}</Button>}
