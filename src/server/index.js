@@ -225,7 +225,7 @@ app.post('/authenticateUser', (req, res) => {
 conn.end();
 });
 
-// Looks up user at given userNo
+// Looks up user at given userNo 
 app.post('/lookUpUser', (req, res) => {
   let conn = newConnection();
   conn.connect();
@@ -360,7 +360,7 @@ app.post('/acceptFriend', (req, res) => {
   conn.end();
 });
 
-
+//im not your friend anymore
 app.post('/dropFriend', (req, res) => {
   let conn = newConnection();
   conn.connect();
@@ -407,9 +407,27 @@ app.post('/friends', (req, res) => {
   let conn = newConnection();
   conn.connect();
   const userNo = req.body.user;
-  
-  
+
   conn.query(`SELECT u.username FROM users As u, friends as f WHERE f.userNo = ${userNo} AND accepted = True AND u.userNo = f.friendNo;`,
+    (err, rows, fields) => {
+      if (err) {
+        console.error(err);
+      }
+      else{
+        res.send(rows);
+      }
+    });
+
+  conn.end();
+});
+
+//returns a list of all friend requests sent my the user
+app.post('/requests', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  const userNo = req.body.user;
+
+  conn.query(`SELECT u.username FROM users As u, friends as f WHERE f.userNo = ${userNo} AND accepted = false AND u.userNo = f.friendNo;`,
     (err, rows, fields) => {
       if (err) {
         console.error(err);

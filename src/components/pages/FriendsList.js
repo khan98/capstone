@@ -20,7 +20,6 @@ function FriendsList()
         //clear table
         content= '';
         table.innerHTML = content;
-
         const user = getNo();
         content =' friends list  ';
         try {
@@ -100,6 +99,51 @@ function FriendsList()
        
     }
 
+    //see sent friend requests
+    const sentRequests = async () => {
+        //reset event listeners on table
+        let oldtable = document.getElementById('table');
+        let table=oldtable.cloneNode(true);
+        oldtable.parentNode.replaceChild(table,oldtable);
+        //clear table
+        content= '';
+        table.innerHTML = content;
+        const user = getNo();
+        content =' request list  ';
+        try {
+            const response = await instance.post(
+                `/requests`,
+                {
+                    user,
+                }
+            );
+           
+            if (response) { 
+                for (let d of response.data) {
+
+                    content+= '<div>'+d.username +'</div>'
+                    table.innerHTML += content;
+                    content= '';
+                    //create button
+                    var btn = document.createElement("button");
+                    var text = document.createTextNode('cancel friend request')
+                    table.appendChild(btn);
+                    btn.appendChild(text);
+                    btn.id= d.username;
+                    //add event listener
+                    table.addEventListener('click', function(e){if (e.target&&e.target.id ==d.username ){removeFriend(user,d.username);} });
+                    
+                } 
+            }
+            
+        } catch (error) {
+            console.log(error);
+        }
+        
+    };
+        
+         //no display edit comands
+
     const acceptFriend = async (usernum, friendName) => {
         const user = usernum;
         const Friend = friendName;
@@ -147,13 +191,11 @@ function FriendsList()
         table.innerHTML = content;
     }
 
+
     const tester2= async(input)=>
     {
         alert('tester2'+ input)
     }
-    
-    
-    
 
     const tester= async()=>
     {
@@ -162,9 +204,6 @@ function FriendsList()
         let table=oldtable.cloneNode(true);
         oldtable.parentNode.replaceChild(table,oldtable);
 
-        
-
-        
         //create button and give it 
         var btn = document.createElement("button");
         var text = document.createTextNode('text')
@@ -196,19 +235,20 @@ function FriendsList()
 
 return (
     <div>
-           <h1>test  </h1> 
+           <h1>Friends List  </h1> 
            <button onClick={myfriends}>
                 my friends
            </button>
            <button onClick={friendRequests}>
                 friend requests
            </button>
+           <button onClick={sentRequests}>
+                sent friend requests
+           </button>
            <button onClick={addFriend}>
                 add friend
            </button>
-           <button onClick={tester}>
-                tester
-           </button>
+           
            <div className="input-container">
                     <p className="text-input-title-text">friend Username</p>
                     <input className="text-input" type="text" value={friendToAdd} onChange={onChangeFriend} />
