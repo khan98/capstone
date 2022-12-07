@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './Button';
 import './Navbar.css';
+import { loggedIn } from "../auth";
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -15,7 +16,7 @@ function Navbar() {
         setButton(true);
     }
   };
-
+  const logged =  loggedIn()? "LOG OUT":"LOG IN";
   useEffect(()=>{
     showButton();
   }, []);
@@ -52,12 +53,12 @@ function Navbar() {
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to='/log-out' className='nav-links-mobile' onClick={closeMobileMenu}>
-                            Log Out
+                        <Link to='/log-in' className='nav-links-mobile' onClick={closeMobileMenu}>
+                            Log In
                         </Link>
                     </li>
                 </ul>
-                {button && <Button buttonStyle='btn--outline'>LOG OUT</Button>}
+                {button && <Button buttonStyle='btn--outline'>{logged}</Button>}
 
             </div>
         </nav>

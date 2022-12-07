@@ -1,6 +1,7 @@
 import React from 'react';
 import CardItem from './CardItem';
 import './Cards.css';
+import { GetLondon }from './pages/EventBoards.js';
 
 function Cards() {
   return (
