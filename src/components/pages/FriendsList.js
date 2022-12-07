@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { getNo } from "../../auth";
 import instance from "../../api/config";
 import { Link, useNavigate } from "react-router-dom";
+//import e from "cors";
 
 function FriendsList()
 {
@@ -12,7 +13,14 @@ function FriendsList()
 
     let content= '';
     const myfriends = async () => {
-        let table = document.getElementById('table');
+        //reset event listeners on table
+        let oldtable = document.getElementById('table');
+        let table=oldtable.cloneNode(true);
+        oldtable.parentNode.replaceChild(table,oldtable);
+        //clear table
+        content= '';
+        table.innerHTML = content;
+
         const user = getNo();
         content =' friends list  ';
         try {
@@ -26,18 +34,37 @@ function FriendsList()
             if (response) { 
                 for (let d of response.data) {
 
-                    content+= '<div>'+d.username +'<button onClick={removeFriend('+user+','+d.username+')}> remove friend </button></div>'
+                    content+= '<div>'+d.username +'</div>'
+                    table.innerHTML += content;
+                    content= '';
+                    //create button
+                    var btn = document.createElement("button");
+                    var text = document.createTextNode('remove friend')
+                    table.appendChild(btn);
+                    btn.appendChild(text);
+                    btn.id= d.username;
+                    //add event listener
+                    table.addEventListener('click', function(e){if (e.target&&e.target.id ==d.username ){removeFriend(user,d.username);} });
+                    
                 } 
             }
             
         } catch (error) {
             console.log(error);
         }
-        table.innerHTML = content;
+        
     };
 
     const friendRequests = async () => {
-        let table = document.getElementById('table');
+        //reset event listeners on table
+        let oldtable = document.getElementById('table');
+        let table=oldtable.cloneNode(true);
+        oldtable.parentNode.replaceChild(table,oldtable);
+        
+        //clear table
+        content= '';
+        table.innerHTML = content;
+
         const user = getNo();
         content =' friends requests';
         try{
@@ -45,22 +72,38 @@ function FriendsList()
             if (response)
             {
                 for (let d of response.data) {
-                    content+= '<div>'+d.username +'<button onClick={acceptFriend('+user+','+d.username+')}> accept request</button>'
-                    content +=' <button onClick={removeFriend('+user+','+d.username+')}> reject request</button> </div>'
-                    
+                    content+= '<div>'+d.username +'</div>'
+                    table.innerHTML += content;
+                    content= '';
+                    //create button
+                    var btn = document.createElement("button");
+                    var text = document.createTextNode('accept request')
+                    table.appendChild(btn);
+                    btn.appendChild(text);
+                    btn.id= d.username;
+                    //add event listener
+                    table.addEventListener('click', function(e){if (e.target&&e.target.id ==d.username ){acceptFriend(user,d.username);} });
+                    //create button
+                    var btn = document.createElement("button");
+                    var text = document.createTextNode('reject request')
+                    table.appendChild(btn);
+                    btn.appendChild(text);
+                    btn.id= d.username+'2';
+                    //add event listener
+                    table.addEventListener('click', function(e){if (e.target&&e.target.id ==(d.username+'2') ){removeFriend(user,d.username);} });
                     
                 } 
             }
         }
         catch(error)
         {console.log(error);}
-        table.innerHTML = content;
+       
     }
 
     const acceptFriend = async (usernum, friendName) => {
         const user = usernum;
         const Friend = friendName;
-        alert(" accept called");
+        //alert(" accept called");
         try{
             const response = await instance.post(`/acceptFriend`,{user,Friend,});
             if (response)
@@ -75,7 +118,7 @@ function FriendsList()
     const removeFriend = async (usernum, friendName) => {
         const user = usernum;
         const Friend = friendName;
-        alert(" removed called");
+        //alert(" removed called");
         try{
             const response = await instance.post(`/dropFriend`,{user,Friend,});
             if (response)
@@ -104,7 +147,51 @@ function FriendsList()
         table.innerHTML = content;
     }
 
+    const tester2= async(input)=>
+    {
+        alert('tester2'+ input)
+    }
+    
+    
+    
 
+    const tester= async()=>
+    {
+        //reset the event listeners on the table
+        let oldtable = document.getElementById('table');
+        let table=oldtable.cloneNode(true);
+        oldtable.parentNode.replaceChild(table,oldtable);
+
+        
+
+        
+        //create button and give it 
+        var btn = document.createElement("button");
+        var text = document.createTextNode('text')
+        table.appendChild(btn);
+        btn.appendChild(text);
+        btn.id= 'btna';
+
+        var btn2 = document.createElement("button");
+        var text2 = document.createTextNode('text2')
+        table.appendChild(btn2);
+        btn2.appendChild(text2);
+        btn2.id = 'btnb';
+
+        var name = 'btnb';
+        
+        table.addEventListener('click', function(e){if (e.target&&e.target.id ==name ){tester2(name);} });
+         
+        //add evnt listener to button
+        //table.addEventListener('click', handelclick);
+       
+        
+        
+        content += '<div>post test</div>'
+        table.innerHTML += content;
+        //table.innerHTML= ' none'
+
+    }
 
 
 return (
@@ -118,6 +205,9 @@ return (
            </button>
            <button onClick={addFriend}>
                 add friend
+           </button>
+           <button onClick={tester}>
+                tester
            </button>
            <div className="input-container">
                     <p className="text-input-title-text">friend Username</p>

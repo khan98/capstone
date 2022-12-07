@@ -94,7 +94,7 @@ app.get('/users', (req, res) => {
 app.get('/londonEvents', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  conn.query('SELECT * FROM EventList WHERE location = "London"',
+  conn.query('SELECT e.eventType,e.eventDate,e.maxAtendees,u.username FROM EventList AS E, users AS u WHERE e.location = "London" AND e.creator = u.userNo',
   (err, rows, fields) => {
     if (err) {
       console.error(err);
@@ -111,7 +111,7 @@ app.get('/londonEvents', (req, res) => {
 app.get('/torontoEvents', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  conn.query('SELECT * FROM EventList WHERE location = "Toronto"',
+  conn.query('SELECT e.eventType,e.eventDate,e.maxAtendees,u.username FROM EventList AS E, users AS u WHERE e.location = "Toronto" AND e.creator = u.userNo',
   (err, rows, fields) => {
     if (err) {
       console.error(err);
@@ -128,7 +128,7 @@ app.get('/torontoEvents', (req, res) => {
 app.get('/niagaraEvents', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  conn.query('SELECT * FROM EventList WHERE location = "Niagara"',
+  conn.query('SELECT e.eventType,e.eventDate,e.maxAtendees,u.username FROM EventList AS E, users AS u WHERE e.location = "Niagra" AND e.creator = u.userNo',
   (err, rows, fields) => {
     if (err) {
       console.error(err);
@@ -140,6 +140,29 @@ app.get('/niagaraEvents', (req, res) => {
 
   conn.end();
 });
+
+//add event
+app.get('/addEvent', (req, res) => {
+  let conn = newConnection();
+  conn.connect();
+  const user = req.body.user;
+  const location = req.body.location;
+  const eventT = req.body.eventType;
+  const eventDate = req.body.eventDate;
+  const maxA = req.body.maxA;
+  conn.query(`INSERT INTO EventList (location,eventType,eventDate,maxAtendees,creator) VALUES ("${location}", "${eventT}", '${eventDate}',${maxA},${user});`,
+  (err, rows, fields) => {
+    if (err) {
+      console.error(err);
+    }
+    else{
+      res.send(rows);
+    }
+  });
+
+  conn.end();
+});
+
 
 //Signs in user
 app.post('/sign-in', (req, res) => {

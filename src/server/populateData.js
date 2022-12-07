@@ -99,11 +99,11 @@ sendQuery(populate,'friends populated');
     //sendQuery(dropUsers,'users droped');
 
 //create all
-/*
-    sendQuery(createusers, 'users created');
-    sendQuery (createfriends,'friends created'); 
+
+    //sendQuery(createusers, 'users created');
+    //sendQuery (createfriends,'friends created'); 
     sendQuery (createEvents,'events created');
     sendQuery (createattendance,'attendance created');
-*/
+
 //popU();
-popfriends();
+//popfriends();
