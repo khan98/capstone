@@ -49,7 +49,7 @@ function Navbar() {
                     </li>
                     <li className='nav-item'>
                         <Link to='/FL' className='nav-links' onClick={closeMobileMenu}>
-                            friendslist
+                            Friends
                         </Link>
                     </li>
                     <li className='nav-item'>

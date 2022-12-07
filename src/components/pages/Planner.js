@@ -51,7 +51,7 @@ export default function Planner(){
                             onChange={(e) => setTitle(e.target.value)}
                         />
                         <br></br>
-                        <label>Even description:</label>
+                        <label>Event description:</label>
                         <textarea 
                             required
                             value ={body}

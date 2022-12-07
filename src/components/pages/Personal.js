@@ -14,7 +14,9 @@ export default function Personal(){
         <h1>
             PERSONAL
         </h1>
-            {blogs && <EventsList blogs={blogs} title="My Events"/>}
+        <h3>
+        {blogs && <EventsList blogs={blogs} title="My Events"/>}
+        </h3>
     </div>
     );
 }

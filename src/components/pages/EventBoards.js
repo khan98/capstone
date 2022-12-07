@@ -177,7 +177,7 @@ function EventBoard(){
                 src="images/niagara.webp"
                 text="Niagara Region"
                 label='Niagara on the Lake Winter Market'
-                onClick ={GetNiagaara}
+                onClick ={GetNiagara}
                 />
             </ul>
         </div>
