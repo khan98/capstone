@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { getNo } from "../../auth";
 import instance from "../../api/config";
 import { Link, useNavigate } from "react-router-dom";
+import './/FriendsList.css'
 //import e from "cors";
 
 function FriendsList()
@@ -234,7 +235,7 @@ function FriendsList()
 
 
 return (
-    <div>
+    <div className="friendslist">
            <h1>Friends List  </h1> 
            <button onClick={myfriends}>
                 my friends

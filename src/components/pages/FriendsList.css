@@ -1,0 +1,9 @@
+.input-container, .friendslist  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-size: 40px;
+  }
