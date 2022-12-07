@@ -1,4 +1,4 @@
-.signup, .input-container  {
+.input-container, .friendslist  {
     display: flex;
     flex-direction: column;
     align-items: center;

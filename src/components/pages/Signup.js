@@ -39,7 +39,6 @@ function Signup() {
             );
            
             if (response) { 
-                alert("sucsess")
                 onClickSignUp();
             }
             
@@ -92,7 +91,8 @@ function Signup() {
 
     const navigate = useNavigate();
     return (
-    <div>
+    <div className="signup" >
+        
         <h1>Sign Up</h1>
             <form style={{ width: 200 }}>
                 <div className="input-container">

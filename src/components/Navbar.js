@@ -48,15 +48,16 @@ function Navbar() {
                         </Link>
                     </li>
                     <li className='nav-item'>
+                        <Link to='/FL' className='nav-links' onClick={closeMobileMenu}>
+                            friendslist
+                        </Link>
+                    </li>
+                    <li className='nav-item'>
                         <Link to='/personal' className='nav-links' onClick={closeMobileMenu}>
                             Personal
                         </Link>
                     </li>
-                    <li className='nav-item'>
-                        <Link to='/log-in' className='nav-links-mobile' onClick={closeMobileMenu}>
-                            Log In
-                        </Link>
-                    </li>
+                    
                 </ul>
                 {button && <Button buttonStyle='btn--outline'>{logged}</Button>}
 

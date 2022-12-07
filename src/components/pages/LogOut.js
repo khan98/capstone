@@ -37,8 +37,13 @@ function LogOut() {
 
     return (
         <div>
+        <br></br><br></br><br></br>
+        <br></br><br></br><br></br>
+        <br></br><br></br><br></br>
+        <div className="logout">
             <button className="button" onClick={Logout} style={{ marginTop: 30 }}>Log Out</button>
             <button className="button" onClick={Delete} style={{ marginTop: 30 }}>Delete Account</button>
+        </div>
         </div>
         );
 

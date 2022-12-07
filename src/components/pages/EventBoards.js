@@ -17,7 +17,7 @@ function EventBoard(){
         let content =''
         content += '<p>'
         for (let d of response.data) {
-            GetCreator(d.creator);
+            //GetCreator(d.creator);
             content += "Event Type: ";
             content += d.eventType;
             content += "&nbsp;&nbsp;";
@@ -28,7 +28,7 @@ function EventBoard(){
             content += d.maxAtendees;
             content += "&nbsp;&nbsp;";
             content += "Creator: ";
-            content += creator;
+            content += d.username;
             content += '<br>'
         }
         content += '</p>'
@@ -111,7 +111,7 @@ function EventBoard(){
         let content =''
         content += '<p>'
         for (let d of response.data) {
-            GetCreator(d.creator);
+            //GetCreator(d.creator);
             content += "Event Type: ";
             content += d.eventType;
             content += "&nbsp;&nbsp;";
@@ -122,7 +122,7 @@ function EventBoard(){
             content += d.maxAtendees;
             content += "&nbsp;&nbsp;";
             content += "Creator: ";
-            content += creator;
+            content += d.username;
             content += '<br>'
         }
         content += '</p>'
@@ -135,7 +135,7 @@ function EventBoard(){
         let content =''
         content += '<p>'
         for (let d of response.data) {
-            GetCreator(d.creator);
+            //GetCreator(d.creator);
             content += "Event Type: ";
             content += d.eventType;
             content += "&nbsp;&nbsp;";
@@ -146,7 +146,7 @@ function EventBoard(){
             content += d.maxAtendees;
             content += "&nbsp;&nbsp;";
             content += "Creator: ";
-            content += creator;
+            content += d.username;
             content += '<br>'
         }
         content += '</p>'
