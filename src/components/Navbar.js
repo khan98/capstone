@@ -43,8 +43,8 @@ function Navbar() {
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to='/planner' className='nav-links' onClick={closeMobileMenu}>
-                            Planner
+                        <Link to='/EventMaker' className='nav-links' onClick={closeMobileMenu}>
+                            Create Event
                         </Link>
                     </li>
                     <li className='nav-item'>

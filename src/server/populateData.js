@@ -38,6 +38,8 @@ const createfriends= `CREATE TABLE Friends (
 
 const createEvents = `CREATE TABLE EventList (
     eventNo int NOT NULL AUTO_INCREMENT,
+    title varchar(255),
+    description varchar(255),
     location varchar(255),
     eventType varchar(255),
     eventDate Datetime,
@@ -102,8 +104,8 @@ sendQuery(populate,'friends populated');
 
     //sendQuery(createusers, 'users created');
     //sendQuery (createfriends,'friends created'); 
-    sendQuery (createEvents,'events created');
-    sendQuery (createattendance,'attendance created');
+    //sendQuery (createEvents,'events created');
+    //sendQuery (createattendance,'attendance created');
 
 //popU();
 //popfriends();

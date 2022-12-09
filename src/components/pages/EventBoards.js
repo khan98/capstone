@@ -18,7 +18,9 @@ function EventBoard(){
         content += '<p>'
         for (let d of response.data) {
             //GetCreator(d.creator);
-            content += "Event Type: ";
+            content += "Event Title: ";
+            content += d.title;
+            content += "  Event Type: ";
             content += d.eventType;
             content += "&nbsp;&nbsp;";
             content += "Date: ";
@@ -112,6 +114,8 @@ function EventBoard(){
         content += '<p>'
         for (let d of response.data) {
             //GetCreator(d.creator);
+            content += "Event Title: ";
+            content += d.title;
             content += "Event Type: ";
             content += d.eventType;
             content += "&nbsp;&nbsp;";
@@ -136,6 +140,8 @@ function EventBoard(){
         content += '<p>'
         for (let d of response.data) {
             //GetCreator(d.creator);
+            content += "Event Title: ";
+            content += d.title;
             content += "Event Type: ";
             content += d.eventType;
             content += "&nbsp;&nbsp;";

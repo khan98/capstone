@@ -94,7 +94,7 @@ app.get('/users', (req, res) => {
 app.get('/londonEvents', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  conn.query('SELECT e.eventType,e.eventDate,e.maxAtendees,u.username FROM EventList AS E, users AS u WHERE e.location = "London" AND e.creator = u.userNo',
+  conn.query('SELECT e.title ,e.eventType,e.eventDate,e.maxAtendees,u.username FROM EventList AS E, users AS u WHERE e.location = "London" AND e.creator = u.userNo',
   (err, rows, fields) => {
     if (err) {
       console.error(err);
@@ -111,7 +111,7 @@ app.get('/londonEvents', (req, res) => {
 app.get('/torontoEvents', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  conn.query('SELECT e.eventType,e.eventDate,e.maxAtendees,u.username FROM EventList AS E, users AS u WHERE e.location = "Toronto" AND e.creator = u.userNo',
+  conn.query('SELECT e.title ,e.eventType,e.eventDate,e.maxAtendees,u.username FROM EventList AS E, users AS u WHERE e.location = "Toronto" AND e.creator = u.userNo',
   (err, rows, fields) => {
     if (err) {
       console.error(err);
@@ -128,7 +128,7 @@ app.get('/torontoEvents', (req, res) => {
 app.get('/niagaraEvents', (req, res) => {
   let conn = newConnection();
   conn.connect();
-  conn.query('SELECT e.eventType,e.eventDate,e.maxAtendees,u.username FROM EventList AS E, users AS u WHERE e.location = "Niagra" AND e.creator = u.userNo',
+  conn.query('SELECT e.title ,e.eventType,e.eventDate,e.maxAtendees,u.username FROM EventList AS E, users AS u WHERE e.location = "Niagra" AND e.creator = u.userNo',
   (err, rows, fields) => {
     if (err) {
       console.error(err);
@@ -142,7 +142,8 @@ app.get('/niagaraEvents', (req, res) => {
 });
 
 //add event
-app.get('/addEvent', (req, res) => {
+app.post('/addDBEvents', (req, res) => {
+  console.log('running');
   let conn = newConnection();
   conn.connect();
   const user = req.body.user;
@@ -150,12 +151,16 @@ app.get('/addEvent', (req, res) => {
   const eventT = req.body.eventType;
   const eventDate = req.body.eventDate;
   const maxA = req.body.maxA;
-  conn.query(`INSERT INTO EventList (location,eventType,eventDate,maxAtendees,creator) VALUES ("${location}", "${eventT}", '${eventDate}',${maxA},${user});`,
+  const title = req.body.title;
+  const desc = req.body.desc;
+  //`INSERT INTO EventList (title,description,location,eventType,eventDate,maxAtendees,creator) VALUES ("${title}","${desc}","${location}","${eventT}",'${eventDate}',${maxA},${user});`
+  conn.query(`INSERT INTO EventList (title,description,location,eventType,eventDate,maxAtendees,creator) VALUES ("${title}","${desc}","${location}","${eventT}",'${eventDate}',${maxA},${user});`,
   (err, rows, fields) => {
-    if (err) {
+    if (err){
       console.error(err);
     }
     else{
+      console.log('success');
       res.send(rows);
     }
   });
